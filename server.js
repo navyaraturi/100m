@@ -9,34 +9,29 @@ app.use(bodyParser.json());
 const tasks = [];
 
 app.get("/tasks", (req, res) => {
-  //   console.log("get route is called");
-
   res.json(tasks);
 });
 
 app.post("/tasks", (req, res) => {
-  //   console.log("post route called");
+  const reqBody = req?.body["content"] || "";
 
-  const reqBody = req.body;
-
-  if (!req.body["content"] || !req?.body["content"].trim()) {
+  if (!reqBody) {
     res.statusCode = 400;
-    res.json({
+    return res.json({
       status: "failed",
       message: "Request body must contain content property",
     });
-    return res.end();
   }
 
   const newTask = {
     id: crypto.randomUUID(),
     priority: "low",
     completed: false,
-    content: req.body["content"].trim(),
+    content: reqBody.trim(),
     createdAt: new Date().getTime(),
   };
 
-  console.log(newTask);
+  // console.log(newTask);
 
   tasks.push(newTask);
 
@@ -44,6 +39,59 @@ app.post("/tasks", (req, res) => {
     status: "success",
     task: newTask,
   });
+});
+
+app.delete("/tasks", (req, res) => {
+  const reqBody = req?.body["id"] || "";
+
+  if (!reqBody) {
+    res.statusCode = 400;
+    return res.json({
+      status: "failed",
+      message: "Request body must contain valid task id",
+    });
+  }
+
+  const taskIndex = tasks.findIndex((task) => task.id === reqBody);
+
+  if (taskIndex === -1) {
+    res.statusCode = 404;
+    return res.json({
+      status: "failed",
+      message: "Task not found",
+    });
+  }
+
+  const deletedTask = tasks.splice(taskIndex, 1);
+
+  return res.json({
+    status: "success",
+    deletedTask,
+  });
+});
+
+app.patch("/tasks", (req, res) => {
+  const reqBody = req?.body["id"] || "";
+
+  if (!reqBody) {
+    res.statusCode = 400;
+    return res.json({
+      status: "failed",
+      message: "Request body must contain valid task id",
+    });
+  }
+
+  const taskIndex = tasks.findIndex((task) => task.id === reqBody);
+
+  if (taskIndex === -1) {
+    res.statusCode = 404;
+    return res.json({
+      status: "failed",
+      message: "Task not found",
+    });
+  }
+
+  tasks[taskIndex] = { ...tasks[taskIndex], ...reqBody };
 });
 
 app.listen("3000", () => {
