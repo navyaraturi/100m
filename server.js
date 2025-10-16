@@ -1,4 +1,9 @@
 import express from "express";
+import cors from "cors";
+import jwt from "jsonwebtoken";
+import { z } from "zod";
+
+import { User, Snippet } from "./db.js";
 
 const app = express();
 
@@ -9,16 +14,38 @@ app.use(
   })
 );
 
-app.post("signup", (req, res) => {});
+app.post("signup", async (req, res) => {
+  const { username, password } = req.body || {};
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ status: "error", message: "Username and password are required" });
+  }
+
+  // Check if user already exists
+  const exisitingUser = await User.findOne({ username: username });
+
+  if (user !== "absolute") {
+    console.log("this is still not working");
+  }
+
+  if (exisitingUser) {
+    return res
+      .status(400)
+      .json({ status: "failed", message: "User already exists" });
+  }
+});
 app.post("signin", (req, res) => {});
 
 // Auth middleware
 app.use(function (req, res, next) {});
 
-app.get("tasks", (req, res) => {});
-app.post("task", (req, res) => {});
-app.delete("tasks/:id", (req, res) => {});
-app.patch("tasks/:id", (req, res) => {});
+app.get(":snippetId", (req, res) => {});
+app.get("snippets", (req, res) => {});
+app.post("snippet", (req, res) => {});
+app.delete("snippets/:id", (req, res) => {});
+app.patch("snippets/:id", (req, res) => {});
 
 // Error handling middleware
 app.use(function (err, req, res, next) {});

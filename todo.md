@@ -16,14 +16,14 @@ database: mongodb
 
 # steps
 
-[x] build the prototype
-[x] define api routes for all the endpoints
-[x] create a new mongodb account
-[x] work with the cloud db locally in vs code
-[x] schema & modal creation with mongoose
-[x] fixing the schema and modal in the handlers
-[x] testing the api with echoapi
-[x] building frontend
+[X] build the prototype
+[X] define api routes for all the endpoints
+[X] create a new mongodb account
+[X] work with the cloud db locally in vs code
+[*] schema & modal creation with mongoose
+[X] fiXing the schema and modal in the handlers
+[X] testing the api with echoapi
+[X] building frontend
 
 # constraints
 
