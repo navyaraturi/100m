@@ -1,12 +1,8 @@
 import express from "express";
-import bodyParser from "body-parser";
 
 const app = express();
 
-app.use(bodyParser.json());
-
-// State for our app
-const tasks = [];
+app.use(express.json());
 
 app.get("/tasks", (req, res) => {
   res.json(tasks);
@@ -92,8 +88,13 @@ app.patch("/tasks", (req, res) => {
   }
 
   tasks[taskIndex] = { ...tasks[taskIndex], ...reqBody };
+
+  return res.json({
+    status: "success",
+    message: "updated",
+  });
 });
 
-app.listen("3000", () => {
-  console.log("Server started 🔥");
+app.listen(Bun.env.PORT, () => {
+  console.log(`Server started on ${Bun.env.PORT} 🔥`);
 });

@@ -1,7 +1,7 @@
 {
   "name": "100m",
   "version": "1.0.0",
-  "description": "A todo api",
+  "description": "Manage your tasks with ease.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -11,7 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^2.2.0",
-    "express": "^5.1.0"
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1"
   }
 }
