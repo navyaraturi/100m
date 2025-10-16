@@ -10,3 +10,13 @@ backend framework: express
 documentation: [TODO]
 frontend: html + js + bootstrap / any static UI library
 database: mongodb
+
+# steps
+
+[x] define api routes for all the endpoints
+[x] create a new mongodb account
+[x] work with the cloud db locally in vs code
+[x] schema & modal creation with mongoose
+[x] fixing the schema and modal in the handlers
+[x] testing the api with echoapi
+[x] building frontend
